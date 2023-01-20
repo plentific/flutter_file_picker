@@ -376,8 +376,8 @@ didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls{
     }
 
     // Copying picked documents to NSTemporaryDirectory to avoid automatic cleanup
-    // which happens after the minute of not using the file the directory returned 
-    // by UIDocumentPickerViewController
+    // which happens after one minute of not using the file in the directory 
+    // returned by UIDocumentPickerViewController
     NSMutableArray *updatedUrls = [NSMutableArray new];
     for (id element in urls){
         NSURL *fileUrl = element;
