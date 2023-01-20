@@ -1,3 +1,7 @@
+## 5.2.5+1
+### iOS
+- Fix issue with disappearing documents picked by UIDocumentPickerViewController after 1 minute
+
 ## 5.2.5
 ### iOS
 - Fix preprocessor definitions in podspec (thanks @tomk9)
