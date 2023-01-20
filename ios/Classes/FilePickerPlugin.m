@@ -374,8 +374,23 @@ didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls{
         _result = nil;
         return;
     }
+
+    // Copying picked documents to NSTemporaryDirectory to avoid automatic cleanup
+    // which happens after the minute of not using the file the directory returned 
+    // by UIDocumentPickerViewController
+    NSMutableArray *updatedUrls = [NSMutableArray new];
+    for (id element in urls){
+        NSURL *fileUrl = element;
+        NSString *fileName = [fileUrl lastPathComponent];
+        NSURL *destination = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
+        
+        if([[NSFileManager defaultManager] isReadableFileAtPath: [fileUrl path]]) {
+            [[NSFileManager defaultManager] copyItemAtURL:fileUrl toURL:destination error:nil];
+            [updatedUrls addObject:destination];
+        }
+    }
     
-    [self handleResult: urls];
+    [self handleResult: updatedUrls];
 }
 #endif // PICKER_DOCUMENT
 
